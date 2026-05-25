@@ -404,7 +404,7 @@ b  { font-weight: 500; color: var(--c-gold-d); }
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: clamp(20px, 6.43%, 36px);
+  padding-bottom: 4.27%;
   gap: var(--sp-sm);
   line-height: 1.85;
 }
@@ -477,6 +477,12 @@ b  { font-weight: 500; color: var(--c-gold-d); }
 /* =========================================================
    RESPONSIVE — TABLET  ≥ 640px
    ========================================================= */
+@media (min-width: 560px) {
+  .cta-img__overlay {
+    padding-bottom: 6.43%;
+  }
+}
+
 @media (min-width: 640px) {
 
   .sp-only { display: none; }
