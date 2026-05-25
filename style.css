@@ -404,7 +404,7 @@ b  { font-weight: 500; color: var(--c-gold-d); }
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 26px;
+  padding-bottom: clamp(20px, 6.43%, 36px);
   gap: var(--sp-sm);
   line-height: 1.85;
 }
