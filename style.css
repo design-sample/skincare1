@@ -120,11 +120,11 @@ b  { font-weight: 500; color: var(--c-gold-d); }
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: 20px 32px;
+  padding: clamp(10px, 3.571vw, 20px) clamp(16px, 5.714vw, 32px);
   width: 80%;
   border-radius: var(--r-pill);
   font-family: var(--ff-sans);
-  font-size: 32px;
+  font-size: clamp(16px, 5.714vw, 32px);
   font-weight: 500;
   letter-spacing: 0.10em;
   text-decoration: none;
@@ -404,7 +404,7 @@ b  { font-weight: 500; color: var(--c-gold-d); }
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 36px;
+  padding-bottom: 26px;
   gap: var(--sp-sm);
   line-height: 1.85;
 }
@@ -459,13 +459,19 @@ b  { font-weight: 500; color: var(--c-gold-d); }
   color: var(--c-sub);
 }
 
-/* PC幅では2×2グリッド */
-@media (min-width: 640px) {
-  .footer__list {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px var(--sp-md);
-  }
+/* =========================================================
+   COPYRIGHT BAR
+   ========================================================= */
+.copyright {
+  background: #3D2B1F;
+  padding: 12px var(--sp-sm);
+  text-align: center;
+}
+
+.copyright__text {
+  font-size: 12px;
+  color: #FFFFFF;
+  letter-spacing: 0.05em;
 }
 
 /* =========================================================
