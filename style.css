@@ -1,0 +1,505 @@
+/* =========================================================
+   CUSTOM PROPERTIES
+   ========================================================= */
+:root {
+  /* カラーパレット — イメージ画像のクリーム×ゴールドトーンに合わせて */
+  --c-bg:        #FAF7F2;
+  --c-bg-alt:    #F2EAE0;
+  --c-text:      #2C2017;
+  --c-sub:       #7A6A58;
+  --c-gold:      #C8A870;
+  --c-gold-d:    #9E7840;
+  --c-gold-l:    #DEC88A;
+  --c-white:     #FFFFFF;
+  --c-border:    #DDD0BC;
+
+  /* タイポグラフィ */
+  --ff-serif:  'Noto Serif JP', 'YuMincho', '游明朝', Georgia, serif;
+  --ff-sans:   'Noto Sans JP', 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', sans-serif;
+  --ff-script: 'Dancing Script', cursive;
+
+  /* レイアウト */
+  --mw:      560px;
+  --sp-xs:   8px;
+  --sp-sm:   16px;
+  --sp-md:   32px;
+  --sp-lg:   56px;
+
+  /* その他 */
+  --r-sm:       6px;
+  --r-pill:     100px;
+  --shadow-btn: 0 4px 20px rgba(158, 120, 64, 0.30);
+  --ease:       0.25s ease;
+}
+
+/* =========================================================
+   RESET & BASE
+   ========================================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--ff-sans);
+  font-size: 16px;
+  line-height: 1.85;
+  color: var(--c-text);
+  background: var(--c-bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+ul { list-style: none; }
+em { font-style: normal; }
+b  { font-weight: 500; color: var(--c-gold-d); }
+
+/* =========================================================
+   BUTTON ANIMATIONS
+   ========================================================= */
+
+/* ゆらゆら浮遊 */
+@keyframes btn-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-7px); }
+}
+
+/* グロー呼吸 */
+@keyframes btn-glow {
+  0%, 100% {
+    box-shadow:
+      0 4px 20px rgba(158, 120, 64, 0.30);
+  }
+  50% {
+    box-shadow:
+      0 7px 32px rgba(200, 168, 112, 0.65),
+      0 0 20px rgba(222, 200, 138, 0.38);
+  }
+}
+
+/* 光のスウィープ */
+@keyframes btn-shimmer {
+  0%        { transform: translateX(-200%); }
+  28%, 100% { transform: translateX(380%); }
+}
+
+/* =========================================================
+   LAYOUT UTILITIES
+   ========================================================= */
+.container {
+  width: 100%;
+  max-width: var(--mw);
+  margin: 0 auto;
+  padding: 0 var(--sp-sm);
+}
+
+.sec      { padding: var(--sp-lg) 0; }
+.sec--alt { background: var(--c-bg-alt); }
+
+.text--gold { color: var(--c-gold-d); }
+
+/* モバイル専用改行 */
+.sp-only { display: inline; }
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 20px 32px;
+  width: 80%;
+  border-radius: var(--r-pill);
+  font-family: var(--ff-sans);
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: 0.10em;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow var(--ease), opacity var(--ease);
+  -webkit-tap-highlight-color: transparent;
+  will-change: transform;
+}
+
+.btn--gold {
+  background: linear-gradient(120deg, var(--c-gold-l) 0%, var(--c-gold) 50%, var(--c-gold-d) 100%);
+  color: var(--c-white);
+  box-shadow: var(--shadow-btn);
+  animation: btn-float 3.5s ease-in-out infinite, btn-glow 2.8s ease-in-out infinite;
+}
+
+/* 光のスウィープ */
+.btn--gold::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.30) 50%,
+    transparent 100%
+  );
+  transform: translateX(-200%);
+  animation: btn-shimmer 3.6s ease-in-out infinite 0.9s;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.btn--gold:hover {
+  box-shadow:
+    0 10px 40px rgba(200, 168, 112, 0.72),
+    0 0 26px rgba(222, 200, 138, 0.45);
+}
+
+.btn--gold:active {
+  opacity: 0.88;
+  animation-play-state: paused;
+}
+
+.btn--lg {
+  padding: 28px 72px;
+  font-size: 32px;
+  letter-spacing: 0.12em;
+}
+
+.btn__arr { font-size: 1.1em; }
+
+/* =========================================================
+   HERO
+   ========================================================= */
+.hero {
+  background: var(--c-bg);
+}
+
+.hero__kv-wrap {
+  max-width: var(--mw);
+  margin: 0 auto;
+  line-height: 0; /* 画像下のギャップを除去 */
+  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+}
+
+.hero__kv {
+  width: 100%;
+  height: auto;
+}
+
+.hero__cta {
+  display: flex;
+  justify-content: center;
+  max-width: var(--mw);
+  margin: 0 auto;
+  padding: var(--sp-md) var(--sp-sm) var(--sp-lg);
+}
+
+/* =========================================================
+   EMPATHY
+   ========================================================= */
+.empathy {
+  background: var(--c-bg);
+}
+
+.empathy__img-wrap {
+  max-width: var(--mw);
+  margin: 0 auto;
+  line-height: 0;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 90%, transparent 100%);
+}
+
+.empathy__img {
+  width: 100%;
+  height: auto;
+}
+
+/* =========================================================
+   SECTION TITLE
+   ========================================================= */
+.sec__ttl {
+  font-family: var(--ff-serif);
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-align: center;
+  line-height: 1.65;
+  margin-bottom: var(--sp-md);
+}
+
+.sec__ttl::after {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: var(--c-gold);
+  margin: var(--sp-xs) auto 0;
+}
+
+/* =========================================================
+   BRAND NAME "OF"
+   ========================================================= */
+.brand-of {
+  font-family: var(--ff-script);
+  font-size: 1.35em;
+  font-weight: 600;
+  color: var(--c-gold-d);
+  letter-spacing: 0.04em;
+  vertical-align: baseline;
+}
+
+/* =========================================================
+   BENEFITS IMAGE
+   ========================================================= */
+.benefits-img {
+  background: var(--c-bg);
+}
+
+.benefits-img__wrap {
+  max-width: var(--mw);
+  margin: 0 auto;
+  line-height: 0;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 90%, transparent 100%);
+}
+
+.benefits-img__img {
+  width: 100%;
+  height: auto;
+}
+
+/* =========================================================
+   BENEFITS
+   ========================================================= */
+.benefit-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-sm);
+}
+
+.benefit-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-sm);
+  padding: var(--sp-sm);
+  background: var(--c-white);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-sm);
+}
+
+.benefit-item__icon {
+  font-size: 22px;
+  flex-shrink: 0;
+  line-height: 1.4;
+}
+
+.benefit-item__body {
+  font-size: 15px;
+  line-height: 1.95;
+}
+
+/* =========================================================
+   REVIEW IMAGE (SOCIAL PROOF)
+   ========================================================= */
+.review-img {
+  background: var(--c-bg);
+}
+
+.review-img__wrap {
+  max-width: var(--mw);
+  margin: 0 auto;
+  line-height: 0;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 90%, transparent 100%);
+}
+
+.review-img__img {
+  width: 100%;
+  height: auto;
+}
+
+/* =========================================================
+   REVIEW (SOCIAL PROOF)
+   ========================================================= */
+.review__box {
+  text-align: center;
+}
+
+.review__mark {
+  display: block;
+  font-size: 52px;
+  line-height: 1;
+  color: var(--c-gold);
+  opacity: 0.40;
+  font-family: Georgia, serif;
+  margin-bottom: -4px;
+}
+
+.review__quote {
+  font-family: var(--ff-serif);
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.9;
+  color: var(--c-text);
+  margin-bottom: var(--sp-sm);
+}
+
+.review__caption {
+  font-size: 14px;
+  line-height: 2;
+  color: var(--c-sub);
+}
+
+.review__note {
+  display: block;
+  margin-top: var(--sp-xs);
+  font-size: 12px;
+  color: var(--c-sub);
+}
+
+/* =========================================================
+   CTA IMAGE SECTION
+   ========================================================= */
+.cta-img {
+  background: var(--c-bg);
+}
+
+.cta-img__inner {
+  max-width: var(--mw);
+  margin: 0 auto;
+  position: relative;
+  line-height: 0;
+}
+
+.cta-img__img {
+  width: 100%;
+  height: auto;
+  display: block;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 100%);
+}
+
+.cta-img__overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 36px;
+  gap: var(--sp-sm);
+  line-height: 1.85;
+}
+
+/* =========================================================
+   CTA SECTION
+   ========================================================= */
+.cta {
+  text-align: center;
+}
+
+.cta__ttl {
+  font-family: var(--ff-serif);
+  font-size: 21px;
+  font-weight: 500;
+  line-height: 1.8;
+  letter-spacing: 0.04em;
+  margin-bottom: var(--sp-sm);
+}
+
+.cta__lead {
+  font-size: 15px;
+  color: var(--c-sub);
+  margin-bottom: var(--sp-md);
+  line-height: 1.9;
+}
+
+.cta__note {
+  margin-top: var(--sp-sm);
+  font-size: 12px;
+  color: var(--c-sub);
+  letter-spacing: 0.02em;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer {
+  background: #EDE5D8;
+  padding: var(--sp-md) 0;
+}
+
+.footer__list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.footer__list li {
+  font-size: 10px;
+  line-height: 1.8;
+  color: var(--c-sub);
+}
+
+/* PC幅では2×2グリッド */
+@media (min-width: 640px) {
+  .footer__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px var(--sp-md);
+  }
+}
+
+/* =========================================================
+   RESPONSIVE — TABLET  ≥ 640px
+   ========================================================= */
+@media (min-width: 640px) {
+
+  .sp-only { display: none; }
+
+  /* エンパシー */
+  .empathy__text { font-size: 17px; }
+
+  /* セクションタイトル */
+  .sec__ttl { font-size: 22px; }
+
+  .benefit-item__body { font-size: 15px; }
+
+  /* レビュー */
+  .review__quote { font-size: 21px; }
+
+  /* CTA */
+  .cta__ttl { font-size: 23px; }
+}
+
+/* =========================================================
+   RESPONSIVE — DESKTOP  ≥ 960px
+   ========================================================= */
+@media (min-width: 960px) {
+  :root {
+    --mw:    640px;
+    --sp-lg: 72px;
+  }
+
+  .empathy__text { font-size: 17px; }
+  .review__quote { font-size: 23px; }
+  .cta__ttl      { font-size: 25px; }
+}
